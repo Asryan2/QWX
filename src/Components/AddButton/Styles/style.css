@@ -1,0 +1,38 @@
+#addButton{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+#addButton:hover {
+  background: rgba(250,250,250,0.05);
+}
+#addButton input[type="file"]{
+  height: 100%;
+  opacity: 0.00001;
+  position: absolute;
+}
+.addIcon{
+  position: relative;
+  height: 16px;
+  width: 16px;
+}
+.addIcon:before{
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 16px;
+  height: 4px;
+  top: 6px;
+
+}
+.addIcon:after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 4px;
+  height: 16px;
+  left: 6px;
+}

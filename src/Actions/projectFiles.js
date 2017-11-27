@@ -1,8 +1,8 @@
 export const PROJECTFILES_ADD_AUDIO = "PROJECTFILES_ADD_AUDIO"
-export function projectfilesAddAudio(path){
+export function projectfilesAddAudio(file){
   return {
     type:PROJECTFILES_ADD_AUDIO,
-    path
+    file
   }
 }
 

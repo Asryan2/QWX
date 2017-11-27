@@ -4,6 +4,8 @@ import {
   PROJECTFILES_PAUSE_ALL,
   PROJECTFILES_STOP_AUDIO
 } from "../Actions/projectFiles"
+import { Howl } from 'howler'
+
 
 const initialState = {
   audioFiles: []
@@ -13,12 +15,29 @@ const projectFiles = function(state = initialState, action){
   switch(action.type){
     case PROJECTFILES_ADD_AUDIO:
       return Object.assign({}, state, {
-        audioFiles: [...state.audioFiles, {key:state.audioFiles.length, path: action.path, isPlaying: false}]
+        audioFiles: [...state.audioFiles,
+          {
+            key:state.audioFiles.length,
+            name:action.file.name,
+            file: new Howl(
+              {
+                src:URL.createObjectURL(action.file),
+                format: action.file.type.split("/")[1]
+              }
+            ),
+            isPlaying: false
+          }
+        ]
       })
     case PROJECTFILES_PLAYPAUSE_AUDIO:
       return {
         audioFiles: state.audioFiles.map((audio)=>{
           if(audio.key === action.key){
+            if(!audio.isPlaying)
+              audio.file.play()
+            else
+              audio.file.pause()
+
             return Object.assign({}, audio, {isPlaying: !audio.isPlaying})
           }
           return audio
@@ -26,13 +45,16 @@ const projectFiles = function(state = initialState, action){
       }
     case PROJECTFILES_PAUSE_ALL:
       return {audioFiles: state.audioFiles.map((audio)=>{
+            audio.file.pause()
           return Object.assign({}, audio, {isPlaying: false})
         return audio
       })}
     case PROJECTFILES_STOP_AUDIO:
         return {audioFiles: state.audioFiles.map((audio)=>{
-          if(audio.key === action.key)
-            return Object.assign({}, audio, {isPlaying: false})
+          if(audio.key === action.key){
+              audio.file.stop()
+              return Object.assign({}, audio, {isPlaying: false})
+          }
           return audio
         })}
     default:

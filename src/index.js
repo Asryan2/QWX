@@ -16,10 +16,6 @@ const unsubscribe = store.subscribe(() =>
   console.log(store.getState())
 )
 
-// Dispatch some actions
-store.dispatch(projectfilesAddAudio('Qami Pchi'))
-store.dispatch(projectfilesAddAudio('Twenty One Pilots - Heathens [Audio Remix]'))
-store.dispatch(projectfilesAddAudio('Delta Heavy - Kill Room'))
 
 // Stop listening to state updates
 unsubscribe()

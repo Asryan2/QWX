@@ -2,3 +2,19 @@
   min-width: 240px;
   background: #1e1e1e;
 }
+#projectFiles> .headerBar:hover{
+  background: rgba(0,0,0,0.06);
+}
+#projectFiles > .headerBar{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  transition: background-color 0.2s ease;
+
+}
+#projectFiles > .headerBar > .special{
+  position: absolute;
+}
