@@ -1,0 +1,22 @@
+#playerSmall{
+  height: 34px;
+  background:rgba(0,17,56,0.3);
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  cursor:pointer;
+}
+#playerSmall-path{
+  font-family: Arial;
+  font-size: 12px;
+  margin-left: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-right: 7px;
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}

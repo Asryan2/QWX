@@ -1,0 +1,13 @@
+#mainContent{
+  background: #252526;
+  height: 100%;
+  border: 4px solid #191919;
+  border-top: none;
+  display: flex;
+}
+.flex-one-fifth{
+  flex: 1;
+}
+.flex-four-fifth{
+  flex: 4;
+}

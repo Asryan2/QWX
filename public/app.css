@@ -1,0 +1,24 @@
+body,html,#root{
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  font-family: 'Circular Std Book';
+}
+.centered{
+  margin: auto;
+}
+.separator{
+  display: inline-block;
+  width: 1px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background: #fff;
+}
+.unselectable{
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
