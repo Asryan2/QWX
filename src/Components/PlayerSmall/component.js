@@ -12,7 +12,7 @@ class PlayerSmall extends React.Component {
    else{
      this.style = {
       background: "rgba(0,17,56,0.3)"
-     }
+     } 
    }
   return (
     <div id="playerSmall"
