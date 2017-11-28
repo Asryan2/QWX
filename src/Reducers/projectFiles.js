@@ -14,18 +14,20 @@ const initialState = {
 const projectFiles = function(state = initialState, action){
   switch(action.type){
     case PROJECTFILES_ADD_AUDIO:
+      let file = new Howl(
+        {
+          src:URL.createObjectURL(action.file),
+          format: action.file.type.split("/")[1]
+        }
+      )
       return Object.assign({}, state, {
         audioFiles: [...state.audioFiles,
           {
             key:state.audioFiles.length,
             name:action.file.name,
-            file: new Howl(
-              {
-                src:URL.createObjectURL(action.file),
-                format: action.file.type.split("/")[1]
-              }
-            ),
-            isPlaying: false
+            file,
+            isPlaying: false,
+            percentCompleted: 0
           }
         ]
       })
@@ -33,8 +35,13 @@ const projectFiles = function(state = initialState, action){
       return {
         audioFiles: state.audioFiles.map((audio)=>{
           if(audio.key === action.key){
-            if(!audio.isPlaying)
-              audio.file.play()
+            if(!audio.isPlaying){
+              setInterval(() => {
+
+              }
+                ,100)
+                audio.file.play()
+            }
             else
               audio.file.pause()
 
