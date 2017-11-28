@@ -1,4 +1,4 @@
-#playerSmall{
+.playerSmall{
   height: 34px;
   background:rgba(0,17,56,0.3);
   display: flex;
@@ -7,10 +7,10 @@
   align-items: center;
   cursor:pointer;
 }
-#playerSmall-path{
+.playerSmall-path{
   font-family: Arial;
   font-size: 12px;
-  margin-left: 10px;
+  padding-left: 10px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
