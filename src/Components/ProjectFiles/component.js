@@ -11,6 +11,7 @@ class ProjectFiles extends React.Component {
       id={audio.key}
       path={audio.name}
       isPlaying={audio.isPlaying}
+      percentCompleted={audio.percentCompleted}
       onPlayPause={(key) => this.handleAudioPlayPause.bind(this)(key)}
       onStopped={(key) => this.handleAudioStopped.bind(this)(key)}
 
@@ -33,7 +34,7 @@ class ProjectFiles extends React.Component {
  render() {
   return (
     <div id="projectFiles" className={this.props.className}>
-      <div class="headerBar">
+      <div className="headerBar">
         <AddButton
           onAdd={(path) => this.handleAudioAdd.bind(this)(path)}
            className="special"/>
