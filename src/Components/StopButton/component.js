@@ -13,7 +13,7 @@ class StopButton extends React.Component {
        className={this.props.className}
        ref={b => {this.button = b}}
        onClick={this.props.onStopped}>
-      <div class="stopIcon"></div>
+      <div className="stopIcon"></div>
     </div>
   );
  }
