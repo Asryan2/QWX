@@ -14,7 +14,7 @@ class PlayButton extends React.Component {
        ref={b => {this.button = b}}
        onClick={() => this.props.onPlayPause()}
        >
-      {(this.props.isPlaying? (<div class="pauseIcon"></div>): (<div class="playIcon"></div>))}
+      {(this.props.isPlaying? (<div className="pauseIcon"></div>): (<div className="playIcon"></div>))}
     </div>
   );
  }
