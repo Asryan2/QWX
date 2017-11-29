@@ -17,9 +17,6 @@ const unsubscribe = store.subscribe(() =>
 )
 
 
-// Stop listening to state updates
-unsubscribe()
-
 ReactDOM.render(
   <Provider store={store}>
     <App/>

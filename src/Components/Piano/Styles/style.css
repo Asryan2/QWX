@@ -1,0 +1,12 @@
+#piano{
+  height: 100%;
+  display: inline-flex;
+  align-items: flex-end;
+  overflow-x: hidden;
+}
+.piano-keys{
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: row;
+  margin:0;
+}

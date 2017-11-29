@@ -18,3 +18,7 @@
 #projectFiles > .headerBar > .special{
   position: absolute;
 }
+#projectFiles .audio-list{
+  margin:0;
+  padding: 0;
+}

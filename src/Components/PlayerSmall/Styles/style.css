@@ -8,8 +8,8 @@
   cursor:pointer;
 }
 .playerSmall-path{
-  font-family: Arial;
-  font-size: 12px;
+  font-family: arial;
+  font-size: 11px;
   padding-left: 10px;
   white-space: nowrap;
   text-overflow: ellipsis;

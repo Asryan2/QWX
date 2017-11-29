@@ -40,7 +40,7 @@ class ProjectFiles extends React.Component {
            className="special"/>
         <ContainerHeader text="Project Files"/>
       </div>
-      <List orientation="vertical" distance="5px">
+      <List orientation="vertical" distance="5px" className="audio-list">
         {this.props.audioFiles.map((audio)=>{
           return this.renderPlayerSmall(audio)
         })}

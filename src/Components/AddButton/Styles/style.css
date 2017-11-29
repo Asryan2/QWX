@@ -16,23 +16,23 @@
 }
 .addIcon{
   position: relative;
-  height: 16px;
-  width: 16px;
+  height: 13px;
+  width: 13px;
 }
 .addIcon:before{
   content: "";
   position: absolute;
   background-color: #fff;
-  width: 16px;
-  height: 4px;
-  top: 6px;
+  width: 13px;
+  height: 3px;
+  top: 5px;
 
 }
 .addIcon:after {
   content: "";
   position: absolute;
   background-color: #fff;
-  width: 4px;
-  height: 16px;
-  left: 6px;
+  width: 3px;
+  height: 13px;
+  left: 5px;
 }

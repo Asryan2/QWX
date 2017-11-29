@@ -1,0 +1,41 @@
+.piano-key{
+  width: 45px;
+  height: 263px;
+  background: #c41637;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+.piano-key::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  background: rgba(0,0,0,0.4);
+  height: 6px;
+  width: 100%;
+  transition: height 0.1s;
+}
+.piano-key:hover::after, .piano-key.pressed::after{
+  height: 4px;
+}
+.piano-key-box{
+  display: none;
+
+}
+.piano-key.pressed{
+  background: rgba(196,22,55,0.8);
+}
+.piano-key-wrapper{
+  position: relative;
+}
+.piano-key-wrapper.pressed-animation .piano-key-box{
+  display: block;
+  height: 0px;
+  width: 45px;
+  margin-bottom: 10px;
+  position: absolute;
+  background: #fff;
+  top: 0px;
+}
