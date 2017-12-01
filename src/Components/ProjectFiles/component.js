@@ -23,6 +23,7 @@ class ProjectFiles extends React.Component {
         this.props.actions.projectfilesPauseAll();
     })
     this.props.actions.projectfilesPlayPauseAudio(key);
+
   }
   handleAudioStopped(key){
     this.props.actions.projectfilesStopAudio(key);

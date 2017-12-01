@@ -10,11 +10,11 @@ class PlayerSmall extends React.Component {
         this.pathElement.style.marginLeft = "0px"
       let marginLeftInt = parseInt(this.pathElement.style.marginLeft.substring(0, this.pathElement.style.marginLeft.length-2), 10)
       if(this.pathElement.offsetWidth - this.pathWrapper.offsetWidth + marginLeftInt > -10){
-        this.pathElement.style.marginLeft = marginLeftInt - 1 + "px"
+        this.pathElement.style.marginLeft = marginLeftInt - 10 + "px"
       }
 
 
-    },20);
+    },200);
   }
   unanimatePathElement(){
 

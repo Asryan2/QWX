@@ -9,7 +9,9 @@ import {
 import ProjectFiles from "../Components/ProjectFiles/component"
 
 function mapStateToProps(state) {
-  return {audioFiles : state.projectFiles.audioFiles}
+  return {
+    audioFiles : state.projectFiles.audioFiles
+  }
 }
 
 function mapDispatchToProps(dispatch) {
