@@ -1,4 +1,3 @@
-
 export const PROJECTFILES_ADD_AUDIO = "PROJECTFILES_ADD_AUDIO"
 export function projectfilesAddAudio(file){
   return {
@@ -9,7 +8,6 @@ export function projectfilesAddAudio(file){
 
 export const PROJECTFILES_PLAYPAUSE_AUDIO = "PROJECTFILES_PLAYPAUSE_AUDIO"
 export function projectfilesPlayPauseAudio(key){
-  
   return {
     type:PROJECTFILES_PLAYPAUSE_AUDIO,
     key
