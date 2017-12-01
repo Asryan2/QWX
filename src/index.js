@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import { createStore } from 'redux'
 import AppReducer from './Reducers/appReducer'
 import { projectfilesAddAudio, projectfilesPlayAudio } from './Actions/projectFiles'
+import { pianoKeyOn, pianoKeyOff } from './Actions/piano'
 import App from './Components/App/component'
 import WebMidi from 'webmidi'
 
@@ -26,6 +27,23 @@ WebMidi.enable(function (err) {
     input.addListener('noteon', "all",
       function (e) {
         console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
+        if(e.note.name + e.note.octave == "C#0"){
+        	store.dispatch(pianoKeyOn(2));
+        }
+        if(e.note.name + e.note.octave == "D#0"){
+        	store.dispatch(pianoKeyOn(3));
+        }
+      }
+    );
+
+    input.addListener('noteoff', "all",
+      function (e) {
+        if(e.note.name + e.note.octave == "C#0"){
+        	store.dispatch(pianoKeyOff(2));
+        }
+        if(e.note.name + e.note.octave == "D#0"){
+        	store.dispatch(pianoKeyOff(3));
+        }
       }
     );
   }

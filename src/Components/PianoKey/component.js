@@ -25,7 +25,6 @@ class PianoKey extends React.Component {
   }
 
  render() {
-   if(this.props)
   return (
     <div
       className={"piano-key-wrapper " +
