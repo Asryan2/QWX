@@ -16,11 +16,11 @@ class PianoKey extends React.Component {
     this.keyElementBox.style.top = "-10px";
   }
   handleMouseDown(){
-    this.animateKeyElementPressed();
+    //this.animateKeyElementPressed();
     this.props.onPlay(this.props.id)
   }
   handleMouseUp(){
-    this.unanimateKeyElementPressed();
+    //this.unanimateKeyElementPressed();
     this.props.onStop(this.props.id)
   }
 
@@ -38,8 +38,8 @@ class PianoKey extends React.Component {
         onMouseDown={this.handleMouseDown.bind(this)}
         onMouseUp={this.handleMouseUp.bind(this)}
         className={"piano-key " + (this.props.isPlaying? "pressed": "")}
-
         >
+        <audio id={"pianoKeyAudio-"+this.props.id} controls className="hidden"/>
       </div>
     </div>
   );

@@ -6,6 +6,9 @@ body,html,#root{
   color: #fff;
   font-family: 'Circular Std Book';
 }
+.hidden{
+  display: none;
+}
 .centered{
   margin: auto;
 }

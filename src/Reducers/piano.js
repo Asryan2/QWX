@@ -3,6 +3,7 @@ import {
   PIANO_KEYOFF,
 } from "../Actions/piano"
 
+import { playNote, stopNote } from "../Helpers/audio"
 
 const initialState = {
   keys: [
@@ -24,6 +25,7 @@ const initialState = {
 const piano = function(state = initialState, action){
   switch(action.type){
     case PIANO_KEYON:
+    playNote(action.id)
       return {
         keys: state.keys.map((key)=>{
           if(key.id == action.id){
@@ -33,6 +35,8 @@ const piano = function(state = initialState, action){
         })
       }
     case PIANO_KEYOFF:
+    stopNote(action.id)
+
       return {
         keys: state.keys.map((key)=>{
           if(key.id == action.id){

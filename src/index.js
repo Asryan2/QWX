@@ -14,8 +14,8 @@ console.log(store.getState())
 
 // Every time the state changes, log it
 // Note that subscribe() returns a function for unregistering the listener
-const unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
+const unsubscribe = store.subscribe(() => {}
+  //console.log(store.getState())
 )
 
 WebMidi.enable(function (err) {
@@ -49,6 +49,23 @@ WebMidi.enable(function (err) {
   }
 });
 
+var keys = ['q', 'w', 'e', 'r','t','y','u','i','o','p','[',']'];
+
+document.addEventListener("keydown", function (e) {
+    e = e || window.event;
+    var index = keys.indexOf(e.key);
+    if(index !== -1)
+      store.dispatch(pianoKeyOn(index+1));
+});
+
+
+document.addEventListener("keyup", function (e) {
+    e = e || window.event;
+
+    var index = keys.indexOf(e.key);
+    if(index !== -1)
+      store.dispatch(pianoKeyOff(index+1));
+});
 
 
 ReactDOM.render(
