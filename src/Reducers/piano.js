@@ -29,6 +29,7 @@ const piano = function(state = initialState, action){
       return {
         keys: state.keys.map((key)=>{
           if(key.id == action.id){
+
             return Object.assign({}, key, {isPlaying: true});
           }
           return key

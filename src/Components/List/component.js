@@ -10,7 +10,7 @@ class List extends React.Component {
    else
       liStyle = {marginBottom: this.props.distance}
   return (
-    <ul id="list" className={this.props.className + " " + (isHorizontal? "list-horizontal" : "list-vertical")}>
+    <ul className={this.props.className + " list " + (isHorizontal? "list-horizontal" : "list-vertical")}>
       {React.Children.map(children, (child, i) => {
           return <li className="list-element" style={liStyle}>{child}</li>
       })}

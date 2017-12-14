@@ -1,0 +1,11 @@
+
+.launchpad-key{
+  width: 73px;
+  height: 74px;
+  background: #CDDCE0;
+  display: inline-block;
+  border-radius: 4px;
+}
+.launchpad-key.pressed-animation{
+  background: blue;
+}
