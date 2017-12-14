@@ -3,7 +3,7 @@ import {
   TypeSelectorTypes
 } from "../Actions/typeSelector"
 
-const typeSelector = function(state = TypeSelectorTypes.Piano, action){
+const typeSelector = function(state = TypeSelectorTypes.Edit, action){
   switch(action.type){
     case TYPESELECTOR_SELECT:
       return action.selected;

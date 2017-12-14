@@ -11,7 +11,6 @@ class MainContent extends React.Component {
       <ProjectFiles className="flex-one-fifth"/>
       <div className="flex-four-fifth">
         <KeyEditor/>
-        <Launchpad />
       </div>
     </div>
   );

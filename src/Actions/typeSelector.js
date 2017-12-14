@@ -1,6 +1,6 @@
 export const TypeSelectorTypes = {
-    Piano : 0,
-    Launchpad : 1,
+    Edit : 0,
+    Play : 1,
 }
 export const TYPESELECTOR_SELECT = "TYPESELECTOR_SELECT"
 export function typeSelectorSelect(selected){

@@ -1,8 +1,12 @@
 import {
   KEYEDITOR_ADD_AUDIO,
-  KEYEDITOR_PLAYPAUSE_AUDIO,
+  KEYEDITOR_PLAY_AUDIO,
+  KEYEDITOR_PAUSE_AUDIO,
   KEYEDITOR_PAUSE_ALL,
-  KEYEDITOR_STOP_AUDIO
+  KEYEDITOR_RELOAD_AUDIO,
+  KEYEDITOR_CHANGE_AUDIO,
+  KEYEDITOR_CHANGE_FROM,
+  KEYEDITOR_CHANGE_TO,
 } from "../Actions/keyEditor"
 
 import {
@@ -13,56 +17,96 @@ import {
 
 const initialState = {
   audioFiles: [
-      {id: 1, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 2, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 3, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 4, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 5, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 6, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 7, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 8, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 9, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 10, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 11, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
-      {id: 12, isPlaying: false, audioId:-1,isPlaying: false, playTime: 0},
+      {id: 0, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 1, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 2, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 3, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 4, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 5, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 6, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 7, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 8, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 9, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 10, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 11, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
   ]
+}
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
 let audioControl = document.getElementById("audioControl");
 
 const keyEditor = function(state = initialState, action){
   switch(action.type){
-    case KEYEDITOR_PLAYPAUSE_AUDIO:
+    case KEYEDITOR_PLAY_AUDIO:
       return {
         audioFiles: state.audioFiles.map((audio)=>{
-          if(audio.key === action.key){
+          if(audio.id === action.key){
             if(!audio.isPlaying){
-              playAudio(audio.src, audio.playTime)
+              if(audio.audio.src != "")
+                playAudio(audio.audio.src, (audio.from === "")? 0: audio.from, audio.id, (audio.to === "")? 0: audio.to)
             }
             else{
-              audio.playTime = pauseAudio()
+              pauseAudio(audio.id)
             }
-            return Object.assign({}, audio, {isPlaying: !audio.isPlaying})
+            if(audio.audio.src != "")
+              return Object.assign({}, audio, {isPlaying: true})
           }
           return audio
         })
       }
-    case KEYEDITOR_PAUSE_ALL:
-      return {
-        audioFiles: state.audioFiles.map((audio)=>{
+    case KEYEDITOR_PAUSE_AUDIO:
+    return {
+      audioFiles: state.audioFiles.map((audio)=>{
+        if(audio.id === action.key){
           if(audio.isPlaying){
-              audio.playTime = pauseAudio()
+            pauseAudio(action.key)
           }
           return Object.assign({}, audio, {isPlaying: false})
-        })
-      }
-    case KEYEDITOR_STOP_AUDIO:
+        }
+        return audio
+      })
+    }
+    case KEYEDITOR_RELOAD_AUDIO:
         return {audioFiles: state.audioFiles.map((audio)=>{
           if(audio.key === action.key){
             if(audio.isPlaying){
-              stopAudio()
             }
-            return Object.assign({}, audio, {isPlaying: false, playTime: 0})
+            return Object.assign({}, audio, {isPlaying: true})
+          }
+          return audio
+        })}
+    case KEYEDITOR_CHANGE_AUDIO:
+        return {audioFiles: state.audioFiles.map((audio)=>{
+          if(audio.id === action.info.key){
+
+            return Object.assign({}, audio, {audio: (action.info.audio)? action.info.audio: {key:-1, name:"", src:""} })
+          }
+          return audio
+        })}
+    case KEYEDITOR_CHANGE_FROM:
+        return {audioFiles: state.audioFiles.map((audio)=>{
+          if(audio.id === action.info.key){
+            if(isNumeric(action.info.from)){
+              return Object.assign({}, audio, {from: parseInt(action.info.from)})
+            }
+            else if(action.info.from === ""){
+              return Object.assign({}, audio, {from: ""})
+            }
+          }
+          return audio
+        })}
+    case KEYEDITOR_CHANGE_TO:
+        return {audioFiles: state.audioFiles.map((audio)=>{
+          if(audio.id === action.info.key){
+            if(isNumeric(action.info.to)){
+              return Object.assign({}, audio, {to: parseInt(action.info.to)})
+            }
+            else if(action.info.to === ""){
+              return Object.assign({}, audio, {to: ""})
+            }
           }
           return audio
         })}

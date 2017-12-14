@@ -7,7 +7,7 @@ body,html,#root{
   font-family: 'Circular Std Book';
 }
 .hidden{
-  display: none;
+  display: none !important;
 }
 .centered{
   margin: auto;

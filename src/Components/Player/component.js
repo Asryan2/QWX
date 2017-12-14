@@ -32,10 +32,8 @@ class Player extends React.Component {
       background: "rgba(0,17,56,0.3)"
      }
    }
-   console.log(this.props)
-   console.log("_________");
-
   return (
+
     <div
       style={this.style}
          className={this.props.className + " unselectable player"}>
@@ -43,7 +41,7 @@ class Player extends React.Component {
          isPlaying={this.props.isPlaying}
          onPlayPause={() => this.props.onPlayPause(this.props.id)}/>
        <StopButton
-         onStopped={() => this.props.onStopped(this.props.id)}/>
+         onStopped={() => this.props.onReload(this.props.id)}/>
       <div className="player-path"
         onMouseOver={() => this.animatePathElement.bind(this)()}
         onMouseOut={() => this.unanimatePathElement.bind(this)()}
@@ -51,10 +49,17 @@ class Player extends React.Component {
         ref={(el) => this.pathWrapper = el}>
         <span ref={(el) => this.pathElement = el}>{this.props.path}</span>
       </div>
+      <div className="player-selectFrom">
+        <input onChange={(e)=> this.props.onFromChanged(e.target.value, this.props.id)} type="text" value={this.props.from}/>
+      </div>
+      <div className="player-selectTo">
+        <input onChange={(e)=> this.props.onToChanged(e.target.value, this.props.id)} type="text" value={this.props.to}/>
+      </div>
       <div className="player-selectAudio">
-        <select>
+        <select value={this.props.selectedAudio} onChange={(e)=> this.props.onAudioChanged(parseInt(e.target.value), this.props.id)}>
+          <option value="-1" key="-1"></option>
           {this.props.audios.map((audio)=>{
-            return <option>audio.name</option>;
+            return <option value={audio.key} key={audio.key}>{audio.name}</option>;
           })}
         </select>
 

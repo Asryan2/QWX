@@ -1,12 +1,18 @@
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { keyEditorPlayPauseAudio, keyEditorPauseAll,keyEditorStopAudio } from "../Actions/keyEditor"
+import { keyEditorPlayAudio,
+      keyEditorPauseAudio,
+      keyEditorReloadAudio,
+      keyEditorChangeAudio,
+      keyEditorChangeFrom,
+      keyEditorChangeTo,
+     } from "../Actions/keyEditor"
 import KeyEditor from "../Components/KeyEditor/component"
 
 function mapStateToProps(state) {
   return {
     keys : state.keyEditor.audioFiles.map((audio) => {
-      return Object.assign({}, audio, {name:"asdasd"})
+      return Object.assign({}, audio)
     }),
     audios: state.projectFiles.audioFiles
 
@@ -15,9 +21,12 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {actions: bindActionCreators({
-    keyEditorPlayPauseAudio,
-    keyEditorPauseAll,
-    keyEditorStopAudio
+    keyEditorPlayAudio,
+    keyEditorPauseAudio,
+    keyEditorReloadAudio,
+    keyEditorChangeAudio,
+    keyEditorChangeFrom,
+    keyEditorChangeTo
   }, dispatch)}
 }
 

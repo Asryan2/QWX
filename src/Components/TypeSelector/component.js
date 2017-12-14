@@ -4,13 +4,13 @@ import { TypeSelectorTypes } from "../../Actions/typeSelector"
 class TypeSelector extends React.Component {
 
  render() {
-   const isPianoSelected = this.props.selected === TypeSelectorTypes.Piano;
-   const isLaunchpadSelected = this.props.selected === TypeSelectorTypes.Launchpad;
+   const isPianoSelected = this.props.selected === TypeSelectorTypes.Edit;
+   const isLaunchpadSelected = this.props.selected === TypeSelectorTypes.Play;
   return (
     <div className={this.props.className} id="typeSelector">
-      <div onClick={()=>{ this.props.handleClick(TypeSelectorTypes.Piano) }} className={'typeText unselectable' + (isPianoSelected? ' selected': '')}>Piano</div>
+      <div onClick={()=>{ this.props.handleClick(TypeSelectorTypes.Edit) }} className={'typeText unselectable' + (isPianoSelected? ' selected': '')}>Edit Mode</div>
       <div className="separator typeText-separator"/>
-      <div onClick={()=>{ this.props.handleClick(TypeSelectorTypes.Launchpad) }} className={'typeText unselectable' + (isLaunchpadSelected? ' selected': '')}>Launchpad</div>
+      <div onClick={()=>{ this.props.handleClick(TypeSelectorTypes.Play) }} className={'typeText unselectable' + (isLaunchpadSelected? ' selected': '')}>Play Mode</div>
     </div>
   );
  }
