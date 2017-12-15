@@ -6,6 +6,7 @@
   flex-direction: row;
   align-items: center;
   cursor:pointer;
+  flex:100%;
 }
 .player-path{
   font-family: arial;
@@ -27,4 +28,10 @@
 }
 .player-selectTo input, .player-selectFrom input{
   width: 50px;
+}
+.player-selectTo,.player-selectFrom,.player-selectIsLoop{
+  display: flex;
+}
+.player-selectTo,.player-selectFrom,.player-selectIsLoop, .player-selectAudio{
+  margin-right: 20px;
 }

@@ -33,65 +33,53 @@ export function setVolume(volume){
 
 window.setVolume = setVolume;
 
-var interval = setInterval(() => {
-  while(queuePlay.length !== 0){
-    var item = queuePlay.pop();
-    clearTimeout(timeouts[item.key])
 
-    keys[item.key].src = item.src
-    keys[item.key].currentTime = item.from/1000
-    if(item.isLoop){
-      keys[item.key].addEventListener('ended', function() {
+export function playAudio(src, from, key, to, isLoop){
+  if(key > -1 && key < keys.length){
+    clearTimeout(timeouts[key])
+
+    keys[key].src = src
+    keys[key].currentTime = from/1000
+    if(isLoop){
+      keys[key].addEventListener('ended', function() {
         this.currentTime = 0;
         this.play();
       }, false);
     }
     else{
-      timeouts[item.key] = setTimeout(()=>{
-
-        pauseAudio(item.key)
-      }, (item.to - item.from));
-      const onEnded = function(){
-        if(!item.isLoop)
-        pauseAudio(item.key)
+      if(!(to === 0 && from ===0)){
+        timeouts[key] = setTimeout(()=>{
+          pauseAudio(key)
+        }, (to - from));
       }
-      keys[item.key].addEventListener("ended", function(){
-        pauseAudio(item.key)
+      keys[key].addEventListener("ended", function(){
+        if(!isLoop)
+          pauseAudio(key)
       });
     }
-    keys[item.key].play();
-
-
-  }
-  while(queuePause.length !== 0){
-    var item = queuePause.pop();
-
-    keys[item.key].pause();
-    if(timeouts[item.key] !== undefined){
-      clearTimeout(timeouts[item.key])
-      timeouts[item.key] = undefined
-    }
-
-    store.dispatch(keyEditorPauseAudio(item.key));
-  }
-}, 100);
-
-
-export function playAudio(src, from, key, to, isLoop){
-  if(key > -1 && key < keys.length){
-    queuePlay.push({key, to, from, src, isLoop});
+    keys[key].play();
   }
   else{
     audioControl.src = src
     audioControl.currentTime = from
-
+    audioControl.addEventListener('ended', function() {
+      this.currentTime = 0;
+      this.pause();
+    }, false);
     audioControl.play()
   }
 }
 
 export function pauseAudio(key){
   if(key >= 0 && key < keys.length){
-    queuePause.push({key});
+
+    keys[key].pause();
+    if(timeouts[key] !== undefined){
+      clearTimeout(timeouts[key])
+      timeouts[key] = undefined
+    }
+
+    setTimeout(()=> store.dispatch(keyEditorPauseAudio(key), 100));
   }
   else{
     audioControl.pause()

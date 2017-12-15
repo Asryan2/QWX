@@ -50,15 +50,20 @@ class Player extends React.Component {
         <span ref={(el) => this.pathElement = el}>{this.props.path}</span>
       </div>
       <div className="player-selectIsLoop">
+        <label>Is Loop:</label>
         <input type="checkbox" onChange={(e)=> this.props.onIsLoopChanged(this.props.id)} checked={this.props.isLoop}/>
       </div>
       <div className="player-selectFrom">
+        <label>From:</label>
         <input onChange={(e)=> this.props.onFromChanged(e.target.value, this.props.id)} type="text" value={this.props.from}/>
       </div>
       <div className="player-selectTo">
+        <label>To:</label>
+
         <input onChange={(e)=> this.props.onToChanged(e.target.value, this.props.id)} type="text" value={this.props.to}/>
       </div>
       <div className="player-selectAudio">
+
         <select value={this.props.selectedAudio} onChange={(e)=> this.props.onAudioChanged(parseInt(e.target.value), this.props.id)}>
           <option value="-1" key="-1"></option>
           {this.props.audios.map((audio)=>{

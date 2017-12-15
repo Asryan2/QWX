@@ -2,6 +2,7 @@ import React from 'react'
 import "./Styles/style.css"
 import List from "../List/component"
 import Player from "../Player/component"
+import ContainerHeader from "../ContainerHeader/component"
 
 class KeyEditor extends React.Component {
   handleAudioChanged(id, keyID){
@@ -31,7 +32,9 @@ class KeyEditor extends React.Component {
     this.props.actions.keyEditorReloadAudio(id);
   }
   renderPlayer(audio){
-    return <Player
+    return <div className="player-wrapper">
+      <label>Key {audio.id+1}:</label>
+      <Player
       key={audio.id}
       id={audio.id}
       path={audio.audio.name}
@@ -48,16 +51,19 @@ class KeyEditor extends React.Component {
       onToChanged={(to,keyID) => this.handleToChanged.bind(this)(to,keyID)}
       onIsLoopChanged={(keyID) => this.handleIsLoopChanged.bind(this)(keyID)}
 
-    />
+    /></div>
   }
  render() {
    return (
     <div id="keyEditor">
-      <List orientation="vertical" distance="5px" className="audio-list">
-        {this.props.keys.map((audio)=>{
-          return this.renderPlayer(audio)
-        })}
-      </List>
+      <div id="keyEditor-wrapper">
+        <ContainerHeader text="Launchpad Key Mapping"/>
+        <List orientation="vertical" distance="5px" className="audio-list">
+          {this.props.keys.map((audio)=>{
+            return this.renderPlayer(audio)
+          })}
+        </List>
+      </div>
     </div>
   );
  }
