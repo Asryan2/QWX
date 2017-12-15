@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import { projectfilesAddAudio, projectfilesPlayAudio } from './Actions/projectFiles'
+import { setVolume } from './Helpers/audio'
 import { keyEditorPlayAudio } from './Actions/keyEditor'
+import { typeSelectorTab, TypeSelectorTypes } from './Actions/typeSelector'
 import store from "./store"
 import App from './Components/App/component'
 import WebMidi from 'webmidi'
@@ -15,35 +17,55 @@ const unsubscribe = store.subscribe(() =>{}
   //console.log(store.getState())
 )
 
+window.init = function(n){
+  WebMidi.enable(function (err) {
+    if (err) {
+      console.log("WebMidi could not be enabled.", err);
+    } else {
+      //console.log(WebMidi.inputs)
+      if(WebMidi.inputs.length > 0){
 
-WebMidi.enable(function (err) {
-  if (err) {
-    console.log("WebMidi could not be enabled.", err);
-  } else {
-    //console.log(WebMidi.inputs)
-    if(WebMidi.inputs.length > 0){
+        var keys = ["C3", "C#3", "D3", "D#3", "E3"];
+        let input = WebMidi.inputs[n];
 
-      let input = WebMidi.inputs[0];
-      var keys = ["C3", "C#3", "D3", "D#3", "E3"];
+        console.log(input);
+        input.addListener('noteon', "all",
+          function (e) {
+            console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
+            for(var i = 0; i < keys.length; i++){
+              if(keys[i] === e.note.name + e.note.octave)
+                store.dispatch(keyEditorPlayAudio(i))
+            }
+          })
+          var maxSoundValue = 0;
+          input.addListener('controlchange', "all",
+              function (e) {
+                console.log("Received 'controlchange' message.", e.value);
+                if(e.value > maxSoundValue) maxSoundValue = e.value;
+                var volume = e.value/maxSoundValue;
+                setVolume(volume)
+              }
+            );
+            input.addListener('pitchbend', "all",
+              function (e) {
+                console.log("Received 'pitchbend' message.", e);
+              })
 
-      console.log(input);
-      input.addListener('noteon', "all",
-        function (e) {
-          console.log("Received 'noteon' message (" + e.note.name + e.note.octave + ").");
-          for(var i = 0; i < keys.length; i++){
-            if(keys[i] === e.note.name + e.note.octave)
-              store.dispatch(keyEditorPlayAudio(i))
-          }
-        })
+        }
       }
-    }
 
-});
+  });
+
+
+}
 
 var keys = ['q', 'w', 'e', 'r','t','y','u','i','o','p','[',']'];
 
 document.addEventListener("keydown", function (e) {
     e = e || window.event;
+    if(e.keyCode === 9)
+      store.dispatch(typeSelectorTab(TypeSelectorTypes.Play));
+
     var index = keys.indexOf(e.key);
     if(index !== -1)
       store.dispatch(keyEditorPlayAudio(index));

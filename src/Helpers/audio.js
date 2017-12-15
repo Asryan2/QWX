@@ -1,3 +1,4 @@
+
 import {MonoSynth, PolySynth, Tremolo, Distortion, Master} from "tone"
 import {Synth} from "./audiosynth"
 import {keyEditorPauseAudio} from "../Actions/keyEditor"
@@ -15,7 +16,7 @@ let keys= [
   document.getElementById("audioNine"),
   document.getElementById("audioTen"),
   document.getElementById("audioEleven"),
-   document.getElementById("audioTwelve"),
+  document.getElementById("audioTwelve"),
 ]
 
 var timeouts = []
@@ -24,6 +25,13 @@ var bpm = 90;
 var queuePlay = [];
 var queuePause = [];
 
+export function setVolume(volume){
+  keys.forEach((el)=>{
+    el.volume = volume;
+  })
+}
+
+window.setVolume = setVolume;
 
 var interval = setInterval(() => {
   while(queuePlay.length !== 0){
@@ -34,8 +42,8 @@ var interval = setInterval(() => {
     keys[item.key].currentTime = item.from/1000
     if(item.isLoop){
       keys[item.key].addEventListener('ended', function() {
-          this.currentTime = 0;
-          this.play();
+        this.currentTime = 0;
+        this.play();
       }, false);
     }
     else{
@@ -45,10 +53,10 @@ var interval = setInterval(() => {
       }, (item.to - item.from));
       const onEnded = function(){
         if(!item.isLoop)
-          pauseAudio(item.key)
+        pauseAudio(item.key)
       }
       keys[item.key].addEventListener("ended", function(){
-          pauseAudio(item.key)
+        pauseAudio(item.key)
       });
     }
     keys[item.key].play();
@@ -66,12 +74,12 @@ var interval = setInterval(() => {
 
     store.dispatch(keyEditorPauseAudio(item.key));
   }
-}, 1000);
+}, 100);
 
 
 export function playAudio(src, from, key, to, isLoop){
   if(key > -1 && key < keys.length){
-      queuePlay.push({key, to, from, src, isLoop});
+    queuePlay.push({key, to, from, src, isLoop});
   }
   else{
     audioControl.src = src

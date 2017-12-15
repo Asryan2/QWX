@@ -31,8 +31,9 @@ class ProjectFiles extends React.Component {
     this.props.actions.projectfilesStopAudio(key);
   }
   handleAudioAdd(file){
-    if (file.type.indexOf('audio') != -1)
-      this.props.actions.projectfilesAddAudio(file)
+    if (file)
+      if (file.type.indexOf('audio') != -1)
+        this.props.actions.projectfilesAddAudio(file)
   }
  render() {
   return (

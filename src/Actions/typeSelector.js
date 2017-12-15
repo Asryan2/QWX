@@ -9,3 +9,10 @@ export function typeSelectorSelect(selected){
     selected
   }
 }
+
+export const TYPESELECTOR_TAB = "TYPESELECTOR_TAB"
+export function typeSelectorTab(){
+  return {
+    type:TYPESELECTOR_TAB
+  }
+}
