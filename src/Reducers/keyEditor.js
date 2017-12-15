@@ -7,6 +7,7 @@ import {
   KEYEDITOR_CHANGE_AUDIO,
   KEYEDITOR_CHANGE_FROM,
   KEYEDITOR_CHANGE_TO,
+  KEYEDITOR_CHANGE_ISLOOP,
 } from "../Actions/keyEditor"
 
 import {
@@ -17,18 +18,18 @@ import {
 
 const initialState = {
   audioFiles: [
-      {id: 0, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 1, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 2, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 3, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 4, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 5, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 6, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 7, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 8, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 9, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 10, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
-      {id: 11, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 },
+      {id: 0, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 1, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 2, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 , isLoop:false},
+      {id: 3, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 4, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 5, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 , isLoop:false},
+      {id: 6, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 7, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 8, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 , isLoop:false},
+      {id: 9, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 10, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0, isLoop:false },
+      {id: 11, isPlaying: false, audio: {key:-1, name:"", src:""},isPlaying: false, from: 0, to:0 , isLoop:false},
   ]
 }
 
@@ -46,7 +47,7 @@ const keyEditor = function(state = initialState, action){
           if(audio.id === action.key){
             if(!audio.isPlaying){
               if(audio.audio.src != "")
-                playAudio(audio.audio.src, (audio.from === "")? 0: audio.from, audio.id, (audio.to === "")? 0: audio.to)
+                playAudio(audio.audio.src, (audio.from === "")? 0: audio.from, audio.id, (audio.to === "")? 0: audio.to, audio.isLoop)
             }
             else{
               pauseAudio(audio.id)
@@ -110,6 +111,13 @@ const keyEditor = function(state = initialState, action){
           }
           return audio
         })}
+      case KEYEDITOR_CHANGE_ISLOOP:
+          return {audioFiles: state.audioFiles.map((audio)=>{
+            if(audio.id === action.info.key){
+              return Object.assign({}, audio, {isLoop: !audio.isLoop})
+            }
+            return audio
+          })}
     default:
     return state
   }

@@ -6,6 +6,7 @@ import { keyEditorPlayAudio,
       keyEditorChangeAudio,
       keyEditorChangeFrom,
       keyEditorChangeTo,
+      keyEditorChangeIsLoop,
      } from "../Actions/keyEditor"
 import KeyEditor from "../Components/KeyEditor/component"
 
@@ -26,7 +27,8 @@ function mapDispatchToProps(dispatch) {
     keyEditorReloadAudio,
     keyEditorChangeAudio,
     keyEditorChangeFrom,
-    keyEditorChangeTo
+    keyEditorChangeTo,
+    keyEditorChangeIsLoop
   }, dispatch)}
 }
 

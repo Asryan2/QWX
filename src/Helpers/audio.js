@@ -17,27 +17,43 @@ let keys= [
   document.getElementById("audioEleven"),
    document.getElementById("audioTwelve"),
 ]
+
 var timeouts = []
 
 var bpm = 90;
 var queuePlay = [];
 var queuePause = [];
+
+
 var interval = setInterval(() => {
   while(queuePlay.length !== 0){
     var item = queuePlay.pop();
+    clearTimeout(timeouts[item.key])
 
     keys[item.key].src = item.src
     keys[item.key].currentTime = item.from/1000
-    console.log(keys[item.key].duration*1000)
+    if(item.isLoop){
+      keys[item.key].addEventListener('ended', function() {
+          this.currentTime = 0;
+          this.play();
+      }, false);
+    }
+    else{
+      timeouts[item.key] = setTimeout(()=>{
+
+        pauseAudio(item.key)
+      }, (item.to - item.from));
+      const onEnded = function(){
+        if(!item.isLoop)
+          pauseAudio(item.key)
+      }
+      keys[item.key].addEventListener("ended", function(){
+          pauseAudio(item.key)
+      });
+    }
     keys[item.key].play();
 
-    timeouts[item.key] = setTimeout(()=>{
-      pauseAudio(item.key)
-    }, (item.to - item.from));
 
-    keys[item.key].addEventListener("ended", function(){
-      pauseAudio(item.key)
-});
   }
   while(queuePause.length !== 0){
     var item = queuePause.pop();
@@ -53,9 +69,9 @@ var interval = setInterval(() => {
 }, 1000);
 
 
-export function playAudio(src, from, key, to){
+export function playAudio(src, from, key, to, isLoop){
   if(key > -1 && key < keys.length){
-      queuePlay.push({key, to, from, src});
+      queuePlay.push({key, to, from, src, isLoop});
   }
   else{
     audioControl.src = src
