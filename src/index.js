@@ -23,7 +23,7 @@ WebMidi.enable(function (err) {
     //console.log(WebMidi.inputs)
     if(WebMidi.inputs.length > 0){
 
-      let input = WebMidi.inputs[1];
+      let input = WebMidi.inputs[0];
       var keys = ["C3", "C#3", "D3", "D#3", "E3"];
 
       console.log(input);
