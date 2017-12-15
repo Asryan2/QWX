@@ -49,6 +49,9 @@ class Player extends React.Component {
         ref={(el) => this.pathWrapper = el}>
         <span ref={(el) => this.pathElement = el}>{this.props.path}</span>
       </div>
+      <div className="player-selectIsLoop">
+        <input type="checkbox" onChange={(e)=> this.props.onIsLoopChanged(this.props.id)} checked={this.props.isLoop}/>
+      </div>
       <div className="player-selectFrom">
         <input onChange={(e)=> this.props.onFromChanged(e.target.value, this.props.id)} type="text" value={this.props.from}/>
       </div>

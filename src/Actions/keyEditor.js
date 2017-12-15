@@ -53,3 +53,11 @@ export function keyEditorChangeTo(to, key){
     info: {to, key}
   }
 }
+
+export const KEYEDITOR_CHANGE_ISLOOP = "KEYEDITOR_CHANGE_ISLOOP"
+export function keyEditorChangeIsLoop( key){
+  return {
+    type:KEYEDITOR_CHANGE_ISLOOP,
+    info: {key}
+  }
+}

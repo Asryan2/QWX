@@ -24,6 +24,9 @@ class KeyEditor extends React.Component {
   handleToChanged(to,keyID){
     this.props.actions.keyEditorChangeTo(to, keyID)
   }
+  handleIsLoopChanged(keyID){
+    this.props.actions.keyEditorChangeIsLoop(keyID)
+  }
   handleReload(id){
     this.props.actions.keyEditorReloadAudio(id);
   }
@@ -37,11 +40,14 @@ class KeyEditor extends React.Component {
       selectedAudio={audio.audio.id}
       from={audio.from}
       to={audio.to}
+      isLoop={audio.isLoop}
       onAudioChanged={(id, keyID) => this.handleAudioChanged.bind(this)(id, keyID)}
       onPlayPause={(id) => this.handlePlayPause.bind(this)(id)}
       onReload={(id) => this.handleReload.bind(this)(id)}
       onFromChanged={(from,keyID) => this.handleFromChanged.bind(this)(from,keyID)}
       onToChanged={(to,keyID) => this.handleToChanged.bind(this)(to,keyID)}
+      onIsLoopChanged={(keyID) => this.handleIsLoopChanged.bind(this)(keyID)}
+
     />
   }
  render() {
