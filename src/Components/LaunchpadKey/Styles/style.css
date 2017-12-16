@@ -5,7 +5,9 @@
   background: #CDDCE0;
   display: inline-block;
   border-radius: 4px;
+  transition: background 0.5s;
+
 }
 .launchpad-key.pressed-animation{
-  background: blue;
+  transition: background 0.5s;
 }

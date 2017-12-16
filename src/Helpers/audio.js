@@ -33,7 +33,20 @@ export function setVolume(volume){
 
 window.setVolume = setVolume;
 
+function removeAllEventListenersFromElement(element) {
+    let clone = element.cloneNode();
+    // move all child elements from the original to the clone
+    while (element.firstChild) {
+        clone.appendChild(element.lastChild);
+    }
 
+    element.parentNode.replaceChild(clone, element);
+    return clone;
+}
+
+function refreshAudio(key){
+  keys[key] = removeAllEventListenersFromElement(keys[key])
+}
 export function playAudio(src, from, key, to, isLoop){
   if(key > -1 && key < keys.length){
     clearTimeout(timeouts[key])
@@ -41,6 +54,7 @@ export function playAudio(src, from, key, to, isLoop){
     keys[key].src = src
     keys[key].currentTime = from/1000
     if(isLoop){
+      refreshAudio(key)
       keys[key].addEventListener('ended', function() {
         this.currentTime = 0;
         this.play();
@@ -52,6 +66,8 @@ export function playAudio(src, from, key, to, isLoop){
           pauseAudio(key)
         }, (to - from));
       }
+      refreshAudio(key)
+
       keys[key].addEventListener("ended", function(){
         if(!isLoop)
           pauseAudio(key)
@@ -62,6 +78,7 @@ export function playAudio(src, from, key, to, isLoop){
   else{
     audioControl.src = src
     audioControl.currentTime = from
+    refreshAudio(key)
     audioControl.addEventListener('ended', function() {
       this.currentTime = 0;
       this.pause();
